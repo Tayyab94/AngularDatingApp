@@ -66,7 +66,7 @@ namespace API
                 // we can restrict the URL, As you can see
              app.UseCors(policy=> {
                 policy.AllowAnyHeader().AllowAnyMethod()
-                .WithOrigins("http://localhost:4200");
+                .WithOrigins("https://localhost:4200");
             });
 
             app.UseAuthorization();
