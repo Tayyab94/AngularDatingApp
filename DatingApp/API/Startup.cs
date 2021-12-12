@@ -35,6 +35,9 @@ namespace API
             });
             
             services.AddControllers();
+
+            // Enabling the Api, Get outside from the project
+            services.AddCors();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPIv5", Version = "v1" });
@@ -54,6 +57,17 @@ namespace API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            // app.UseCors(policy=> {
+            //     policy.AllowAnyHeader().AllowAnyMethod()
+            //     .AllowAnyOrigin();
+            // });
+
+                // we can restrict the URL, As you can see
+             app.UseCors(policy=> {
+                policy.AllowAnyHeader().AllowAnyMethod()
+                .WithOrigins("http://localhost:4200");
+            });
 
             app.UseAuthorization();
 
