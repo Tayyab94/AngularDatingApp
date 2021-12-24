@@ -40,15 +40,12 @@ namespace API
         {
 
             services.AddApplicationServices(Configuration);
-
             services.AddControllers();
 
 
             // Enabling the Api, Get outside from the project
             services.AddCors();
 
-
-            
             // Validating The Token By passing into Header of any requesst
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options=> {
@@ -77,7 +74,6 @@ namespace API
             }
 
             app.UseHttpsRedirection();
-
             app.UseRouting();
 
             // app.UseCors(policy=> {
@@ -85,17 +81,14 @@ namespace API
             //     .AllowAnyOrigin();
             // });
 
-                // we can restrict the URL, As you can see
-             app.UseCors(policy=> {
+            // we can restrict the URL, As you can see
+            app.UseCors(policy=> {
                 policy.AllowAnyHeader().AllowAnyMethod()
                 .WithOrigins("https://localhost:4200");
             });
 
-
             app.UseAuthentication();
             app.UseAuthorization();
-
-            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

@@ -58,8 +58,7 @@ namespace API.Controllers
 
         public async Task<ActionResult<UserDTO>> Login(LoginDTO loginDTO)
         {
-            var user =await this.context.AppUsers
-                    .SingleOrDefaultAsync(s=>s.Username== loginDTO.username);
+            var user =await this.context.AppUsers.SingleOrDefaultAsync(s=>s.Username== loginDTO.username);
 
             if(user== null) return Unauthorized("Invalud UserName");
 
