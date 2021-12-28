@@ -12,6 +12,7 @@ namespace API.DTOs
         public string username { get; set; }
 
         [Required(ErrorMessage ="Password is Requried")]
+        [StringLength(8,MinimumLength =4)]
         public string password { get; set; }
     }
 }
