@@ -58,3 +58,6 @@ C:\Users\Admin\Desktop\Learning Material\AngularPractice\DatingApp\API\bin\Debug
 C:\Users\Admin\Desktop\Learning Material\AngularPractice\DatingApp\API\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\Admin\Desktop\Learning Material\AngularPractice\DatingApp\API\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.dll
 C:\Users\Admin\Desktop\Learning Material\AngularPractice\DatingApp\API\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\Admin\Desktop\Learning Material\AngularPractice\DatingApp\API\bin\Debug\net6.0\Data\UserSeedData.json
+C:\Users\Admin\Desktop\Learning Material\AngularPractice\DatingApp\API\bin\Debug\net6.0\AutoMapper.dll
+C:\Users\Admin\Desktop\Learning Material\AngularPractice\DatingApp\API\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
