@@ -42,7 +42,7 @@ namespace API.Controllers
            await this.context.SaveChangesAsync();
 
            return new UserDTO(){
-               UserName = user.Username,
+               userName = user.Username,
                 Token= _tokenServices.CreateToken(user)
            };
         }
@@ -71,7 +71,7 @@ namespace API.Controllers
                 if(computedHash[i] != user.PasswordHash[i]) return Unauthorized("Invalid Password");
             }
 
-            return new UserDTO(){UserName = user.Username, Token = _tokenServices.CreateToken(user)};
+            return new UserDTO(){userName = user.Username, Token = _tokenServices.CreateToken(user)};
         }
     }
 }
