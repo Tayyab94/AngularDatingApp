@@ -16,6 +16,8 @@ namespace API.Extensions
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration configuration)
         {
+            services.Configure<CloudnarySettings>(configuration.GetSection("CloudnarySettings"));
+
             // We Are Defining the Connection string for our Project
             services.AddDbContext<DataContext>(options=>{
                options.UseSqlite(configuration.GetConnectionString("DefaultConnection")); 
@@ -23,6 +25,7 @@ namespace API.Extensions
             
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ITokenServices, TokenServices>();
+            services.AddScoped<IPhotoService, PhotoService>();
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
 
             return services;

@@ -11,6 +11,8 @@ namespace API.Repositories
     {
         void UpdateUser(AppUser user);
 
+        Task<Photo>GetPhoto(int photoId);
+         void updateUserPhoto(int UserPhotoId, int photoID);
         Task<bool> SaveAllAsync();
 
         Task<IEnumerable<AppUser>>GetUsersAsync();

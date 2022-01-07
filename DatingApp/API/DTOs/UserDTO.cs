@@ -10,5 +10,7 @@ namespace API.DTOs
         public string userName { get; set; }
 
         public string Token { get; set; }
+
+        public string photoUrl{get;set;}
     }
 }

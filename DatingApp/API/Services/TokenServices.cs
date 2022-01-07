@@ -20,8 +20,6 @@ namespace API.Services
 
         }
 
-
-
         // We are using this function to create JWT token.. 
         public string CreateToken(AppUser user)
         {

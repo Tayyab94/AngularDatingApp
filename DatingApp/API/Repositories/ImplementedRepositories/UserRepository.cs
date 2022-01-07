@@ -41,6 +41,11 @@ namespace API.Repositories.ImplementedRepositories
                 .ToListAsync();
         }
 
+        public async Task<Photo> GetPhoto(int photoId)
+        {
+           return await context.Photos.FirstOrDefaultAsync(s=>s.Id==photoId);
+        }
+
         public async Task<AppUser> GetUserByIdAsync(int id)
         {
             return await context.AppUsers.FindAsync(id);
@@ -64,6 +69,18 @@ namespace API.Repositories.ImplementedRepositories
         public void UpdateUser(AppUser user)
         {
             context.Entry(user).State= EntityState.Modified;
+        }
+
+        public void updateUserPhoto(int UserPhotoId,int photoId)
+        {
+            var data = context.Photos.Where(s=>s.Id== photoId).FirstOrDefault();
+            data.IsMain= false;
+            context.Entry(data).State= EntityState.Modified;
+
+            var photo = context.Photos.Where(s=>s.Id== photoId).FirstOrDefault();
+            data.IsMain= true;
+            context.Entry(data).State= EntityState.Modified;
+
         }
     }
 }
