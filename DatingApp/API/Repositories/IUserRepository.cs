@@ -27,6 +27,8 @@ namespace API.Repositories
         
         Task<MemberDTO> GetMemberByIdAsync(int id);
         Task<MemberDTO> GetMemberByUsernameAsync(string userName);
+
+        void deletePhotoFromDb(int id);
         
     }
 }

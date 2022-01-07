@@ -119,18 +119,18 @@ namespace API.Controllers
             
             var photo= user.Photos.FirstOrDefault(s=> s.Id == photoId);
 
-            // if(photo.IsMain) return BadRequest("This is aleady main Photo");
+            if(photo.IsMain) return BadRequest("This is aleady main Photo");
             
-            // var currentMain = user.Photos.FirstOrDefault(s=>s.IsMain);
+            var currentMain = user.Photos.FirstOrDefault(s=>s.IsMain);
 
-            // if(currentMain!=null) currentMain.IsMain=false;
+            if(currentMain!=null) currentMain.IsMain=false;
 
-            // photo.IsMain=true;
+            photo.IsMain=true;
 
     
             try
             {
-                userRepository.updateUserPhoto(photo.Id,photoId);
+                // userRepository.updateUserPhoto(photo.Id,photoId);
                   if(await userRepository.SaveAllAsync())
                      {
                     return NoContent();
@@ -143,6 +143,34 @@ namespace API.Controllers
             }
            
             return BadRequest("Fail to set main Photo");
+        }
+
+        [HttpDelete("delete-photo/{photoId}")]
+
+        public async Task<ActionResult> DeletePhoto(int photoId)
+        {
+            var user = await userRepository.GetMemberByUsernameAsync(User.GetUserName());
+
+            var photo= user.Photos.FirstOrDefault(s=>s.Id ==photoId);
+
+            if(photo == null) return NotFound();
+
+            // if(photo.IsMain) return BadRequest("You can not delte main Photo");
+
+            if(photo.PublicId!= null)
+            {
+                var result = await photoService.DeletePhotoAsync(photo.PublicId);
+                if(result.Error!= null) return BadRequest(result.Error.Message);
+            }
+
+
+            user.Photos.Remove(photo);
+
+            userRepository.deletePhotoFromDb(photo.Id);
+            return Ok();
+            // if(await userRepository.SaveAllAsync()) return Ok();
+
+            return BadRequest("Fail to delete");
         }
     }
 }

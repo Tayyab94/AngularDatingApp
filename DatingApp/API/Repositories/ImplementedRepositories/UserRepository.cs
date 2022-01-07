@@ -82,5 +82,14 @@ namespace API.Repositories.ImplementedRepositories
             context.Entry(data).State= EntityState.Modified;
 
         }
+
+        
+       public void deletePhotoFromDb(int id)
+        {
+            var data= context.Photos.Where(s=>s.Id==id).FirstOrDefault();
+
+            context.Photos.Remove(data);
+            context.SaveChanges();
+        }
     }
 }
