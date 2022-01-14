@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.DTOs;
 using API.Entities;
+using API.Helpers;
 
 namespace API.Repositories
 {
@@ -22,7 +23,7 @@ namespace API.Repositories
         Task<AppUser> GetUserByUsernameAsync(string userName);
 
         
-        Task<IEnumerable<MemberDTO>>GetMembersAsync();
+        Task<PagedList<MemberDTO>>GetMembersAsync(UserParams userParam);
 
         
         Task<MemberDTO> GetMemberByIdAsync(int id);
