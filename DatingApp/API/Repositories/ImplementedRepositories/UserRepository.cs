@@ -38,15 +38,29 @@ namespace API.Repositories.ImplementedRepositories
         
         public async Task<PagedList<MemberDTO>> GetMembersAsync(UserParams userParam)
         {
-            var query= context.AppUsers
-                .ProjectTo<MemberDTO>(mapper.ConfigurationProvider)
-                .AsNoTracking();
+            // var query= context.AppUsers
+            //     .ProjectTo<MemberDTO>(mapper.ConfigurationProvider)
+            //     .AsNoTracking().AsQueryable();
 
-            return await PagedList<MemberDTO>.CreateAsync(query,userParam.PageNumber,userParam.PageSize);
+            // return await PagedList<MemberDTO>.CreateAsync(query,userParam.PageNumber,userParam.PageSize);
+
+            var query= context.AppUsers.AsQueryable();
+
+            query = query.Where(s=>s.Username != userParam.CurentUserName);
+            query = query.Where(s=>s.Gender== userParam.Gender);
+
+            var minDOB = DateTime.Today.AddYears(-userParam.MaxAge -1);
+            var maxDOB = DateTime.Today.AddYears(-userParam.MinAge);
+
+            query = query.Where(s=>s.DateOfBirth >= minDOB && s.DateOfBirth <=maxDOB);
+
+            return await PagedList<MemberDTO>.CreateAsync(query.ProjectTo<MemberDTO>(
+                                            mapper.ConfigurationProvider).AsNoTracking(),
+                                            userParam.PageNumber,userParam.PageSize);
 
         }
         public async Task<Photo> GetPhoto(int photoId)
-        {
+        {   
            return await context.Photos.FirstOrDefaultAsync(s=>s.Id==photoId);
         }
 
@@ -80,7 +94,6 @@ namespace API.Repositories.ImplementedRepositories
             var data = context.Photos.Where(s=>s.Id== photoId).FirstOrDefault();
             data.IsMain= false;
             context.Entry(data).State= EntityState.Modified;
-
             var photo = context.Photos.Where(s=>s.Id== photoId).FirstOrDefault();
             data.IsMain= true;
             context.Entry(data).State= EntityState.Modified;
@@ -91,7 +104,6 @@ namespace API.Repositories.ImplementedRepositories
        public void deletePhotoFromDb(int id)
         {
             var data= context.Photos.Where(s=>s.Id==id).FirstOrDefault();
-
             context.Photos.Remove(data);
             context.SaveChanges();
         }
