@@ -54,6 +54,13 @@ namespace API.Repositories.ImplementedRepositories
 
             query = query.Where(s=>s.DateOfBirth >= minDOB && s.DateOfBirth <=maxDOB);
 
+            // apply the switch statement 
+            query = userParam.OrderBy switch
+            {
+                "created"=> query.OrderByDescending(s=>s.Created),
+                _=> query.OrderByDescending(s=>s.LastActive)
+            };
+            
             return await PagedList<MemberDTO>.CreateAsync(query.ProjectTo<MemberDTO>(
                                             mapper.ConfigurationProvider).AsNoTracking(),
                                             userParam.PageNumber,userParam.PageSize);
