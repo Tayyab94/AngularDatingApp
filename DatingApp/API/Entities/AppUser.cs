@@ -1,3 +1,5 @@
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using API.Extensions;
 
 namespace API.Entities
@@ -5,6 +7,7 @@ namespace API.Entities
     public class AppUser
     {
         public int Id { get; set; }
+
         public string Username { get; set; }
 
         public byte[] PasswordHash {get; set;}
@@ -35,6 +38,12 @@ namespace API.Entities
         public ICollection<UserLike> LikedByUser {get;set;}
 
         public ICollection<UserLike> LikedUser {get;set;}
+
+
+
+        public ICollection<Message> MessageSent {get;set;}
+
+        public ICollection<Message> MessageReceived {get;set;}
 
         // public int GetAge()
         // {

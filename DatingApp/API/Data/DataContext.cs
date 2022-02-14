@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using API.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,10 +15,11 @@ namespace API.Data
 
          public DbSet<UserLike> UserLikes {get;set;}
 
+        public DbSet<Message> Messages{get;set;}
 
          protected override void OnModelCreating(ModelBuilder builder)
          {
-             base.OnModelCreating(builder);
+            base.OnModelCreating(builder);
 
             builder.Entity<UserLike>()
             .HasKey(s=> new {s.SourceUserId,s.LikeUserId});
@@ -39,6 +36,17 @@ namespace API.Data
                 .WithMany(s=>s.LikedByUser)
                 .HasForeignKey(s=>s.LikeUserId
                 ).OnDelete(DeleteBehavior.NoAction);
+
+
+            builder.Entity<Message>()
+            .HasOne(s=>s.Receiver)
+            .WithMany(ss=>ss.MessageReceived)
+            .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Message>()
+            .HasOne(s=>s.Sender)
+            .WithMany(ss=>ss.MessageSent)
+            .OnDelete(DeleteBehavior.Restrict);
          }
     }
 }

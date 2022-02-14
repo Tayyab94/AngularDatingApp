@@ -52,7 +52,8 @@ namespace API
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey= true,
-                     IssuerSigningKey= new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["tokenKey"])),
+                     IssuerSigningKey=
+                      new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["tokenKey"])),
                      ValidateIssuer=false,
                      ValidateAudience=false
                 };
